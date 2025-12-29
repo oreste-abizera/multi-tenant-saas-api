@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
-import jwt, { SignOptions } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+import type { StringValue } from 'ms';
 import { config } from '../config';
 import { JWTPayload } from '../types';
 
@@ -15,10 +16,9 @@ export const comparePassword = async (
 };
 
 export const generateToken = (payload: JWTPayload): string => {
-  const options: SignOptions = {
-    expiresIn: config.jwt.expiresIn as any,
-  };
-  return jwt.sign(payload, config.jwt.secret, options);
+  return jwt.sign(payload, config.jwt.secret, {
+    expiresIn: config.jwt.expiresIn as StringValue,
+  });
 };
 
 export const verifyToken = (token: string): JWTPayload => {

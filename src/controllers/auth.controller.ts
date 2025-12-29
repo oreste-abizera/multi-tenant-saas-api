@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import prisma from '../config/database';
 import { hashPassword, comparePassword, generateToken } from '../utils/auth';
+import { AuthRequest } from '../types';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -112,7 +113,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 export const getProfile = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = (req as any).user.id;
+    const userId = (req as AuthRequest).user!.id;
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
