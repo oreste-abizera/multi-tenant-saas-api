@@ -10,9 +10,10 @@ A production-ready multi-tenant SaaS backend built with Node.js, Express, TypeSc
 - 🛡️ **Protected Routes** - Organization-scoped data access
 - ✅ **Input Validation** - Request validation using express-validator
 - 🚨 **Error Handling** - Centralized error handling middleware
-- 🔒 **Security** - Helmet for security headers, CORS enabled
+- 🔒 **Security** - Helmet for security headers, CORS enabled, rate limiting
 - 📊 **Database** - PostgreSQL with Prisma ORM
 - 🏗️ **TypeScript** - Full type safety
+- ⚡ **Rate Limiting** - Protection against brute force and DDoS attacks
 
 ## Tech Stack
 
@@ -23,7 +24,7 @@ A production-ready multi-tenant SaaS backend built with Node.js, Express, TypeSc
 - **ORM**: Prisma
 - **Authentication**: JWT (jsonwebtoken)
 - **Validation**: express-validator
-- **Security**: Helmet, bcryptjs
+- **Security**: Helmet, bcryptjs, express-rate-limit
 - **CORS**: cors
 
 ## Prerequisites
@@ -285,6 +286,10 @@ npm run prisma:studio    # Open Prisma Studio
 3. **CORS**: Configure CORS settings based on your frontend domain
 4. **Helmet**: Security headers are automatically set
 5. **Environment Variables**: Never commit `.env` file to version control
+6. **Rate Limiting**: 
+   - General API: 100 requests per 15 minutes per IP
+   - Auth endpoints: 5 requests per 15 minutes per IP
+   - Organization creation: 10 per hour per IP
 
 ## Error Handling
 

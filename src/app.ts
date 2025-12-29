@@ -3,12 +3,16 @@ import cors from 'cors';
 import helmet from 'helmet';
 import routes from './routes';
 import { errorHandler, notFound } from './middleware/error';
+import { apiLimiter } from './middleware/rateLimiter';
 
 const app: Application = express();
 
 // Security middleware
 app.use(helmet());
 app.use(cors());
+
+// Rate limiting
+app.use('/api', apiLimiter);
 
 // Body parsing middleware
 app.use(express.json());

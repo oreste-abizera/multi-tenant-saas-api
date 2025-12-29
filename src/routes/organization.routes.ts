@@ -17,6 +17,7 @@ import {
   requireOwner,
 } from '../middleware/organization';
 import { validate } from '../middleware/validate';
+import { createOrgLimiter } from '../middleware/rateLimiter';
 import { Role } from '@prisma/client';
 
 const router = Router();
@@ -25,6 +26,7 @@ const router = Router();
 router.post(
   '/',
   authenticate,
+  createOrgLimiter,
   [body('name').notEmpty().withMessage('Organization name is required'), validate],
   createOrganization
 );

@@ -3,12 +3,14 @@ import { body } from 'express-validator';
 import { register, login, getProfile } from '../controllers/auth.controller';
 import { authenticate } from '../middleware/auth';
 import { validate } from '../middleware/validate';
+import { authLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 
 // Register
 router.post(
   '/register',
+  authLimiter,
   [
     body('email').isEmail().withMessage('Valid email is required'),
     body('password')
@@ -23,6 +25,7 @@ router.post(
 // Login
 router.post(
   '/login',
+  authLimiter,
   [
     body('email').isEmail().withMessage('Valid email is required'),
     body('password').notEmpty().withMessage('Password is required'),
